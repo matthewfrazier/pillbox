@@ -1,0 +1,5 @@
+{
+  "status": "rejected",
+  "reason": "Blender temporary-scene rigid-body cache produced a nonphysical initialization impulse and zero tail motion; values must not be used for design decisions.",
+  "replacement": "bearing_drop_proxy_results.json"
+}

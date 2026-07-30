@@ -1,0 +1,12 @@
+{
+  "type": "filament",
+  "name": "Generic PETG P2S - anti-warp review",
+  "inherits": "Generic PETG @BBL P2S",
+  "from": "User",
+  "instantiation": "true",
+  "compatible_printers": ["Bambu Lab P2S 0.4 nozzle"],
+  "textured_plate_temp_initial_layer": ["75"],
+  "textured_plate_temp": ["70"],
+  "hot_plate_temp_initial_layer": ["75"],
+  "hot_plate_temp": ["70"]
+}

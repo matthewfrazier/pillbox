@@ -1,0 +1,20 @@
+# Blender backups
+*.blend1
+*.blend2
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Local development
+.env
+.local
+
+# Large experimental files
+*.tmp
+*.backup

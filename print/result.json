@@ -1,0 +1,68 @@
+{
+    "error_string": "Invalid parameters to the slicer.",
+    "export_time": 537180078517286259,
+    "layer_height": 0.20000000298023224,
+    "plate_index": 0,
+    "prepare_time": 2730,
+    "return_code": -2,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 78.09917449951172,
+                "Bridge": 1021.2154541015625,
+                "Brim": 178.99929809570313,
+                "Custom": 1.9411299228668213,
+                "Inner wall": 7078.86328125,
+                "Internal solid infill": 1892.2904052734375,
+                "Outer wall": 6383.0654296875,
+                "Overhang wall": 170.02734375,
+                "Skirt": 15.281506538391113,
+                "Sparse infill": 412.46270751953125,
+                "Support": 187.96490478515625,
+                "Support interface": 98.1123275756836,
+                "Support transition": 30.833290100097656,
+                "Top surface": 525.3754272460938,
+                "Travel": 3956.135009765625,
+                "Undefined": 3955.738037109375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "",
+                    "id": 1,
+                    "main_used_g": 0.0,
+                    "total_used_g": 0.0
+                }
+            ],
+            "generate_support_material_time": 399,
+            "id": 1,
+            "infill_time": 89,
+            "layer_filament_change": 0,
+            "main_predication": 22018.958984375,
+            "make_perimeters_time": 884,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 52.53187942504883,
+                        "height": 86.0,
+                        "width": 156.5,
+                        "x": 21.750009536743164,
+                        "y": 73.73406219482422,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "pillbox_v2_squeeze_lock_review_plate.stl",
+                    "triangle_count": 2019244
+                }
+            ],
+            "sliced_time": 2328,
+            "sliced_time_with_cache": 915,
+            "total_predication": 22020.50390625,
+            "triangle_count": 2019244,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 20.0,
+    "wall_loops": 4
+}

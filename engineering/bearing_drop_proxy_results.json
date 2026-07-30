@@ -1,0 +1,68 @@
+[
+  {
+    "surface": "smooth_petg",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 5.0,
+    "assumed_coefficient_of_restitution": 0.45,
+    "incident_energy_mJ": 0.20123245799999998,
+    "rebound_energy_mJ": 0.040749572745,
+    "energy_not_returned_to_rebound_mJ": 0.16048288525499999,
+    "rebound_height_mm": 1.0125000000000002
+  },
+  {
+    "surface": "textured_petg",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 5.0,
+    "assumed_coefficient_of_restitution": 0.3,
+    "incident_energy_mJ": 0.20123245799999998,
+    "rebound_energy_mJ": 0.018110921219999996,
+    "energy_not_returned_to_rebound_mJ": 0.18312153677999998,
+    "rebound_height_mm": 0.45
+  },
+  {
+    "surface": "tpu_90a_liner",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 5.0,
+    "assumed_coefficient_of_restitution": 0.12,
+    "incident_energy_mJ": 0.20123245799999998,
+    "rebound_energy_mJ": 0.0028977473951999995,
+    "energy_not_returned_to_rebound_mJ": 0.19833471060479999,
+    "rebound_height_mm": 0.072
+  },
+  {
+    "surface": "smooth_petg",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 10.0,
+    "assumed_coefficient_of_restitution": 0.45,
+    "incident_energy_mJ": 0.40246491599999995,
+    "rebound_energy_mJ": 0.08149914549,
+    "energy_not_returned_to_rebound_mJ": 0.32096577050999997,
+    "rebound_height_mm": 2.0250000000000004
+  },
+  {
+    "surface": "textured_petg",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 10.0,
+    "assumed_coefficient_of_restitution": 0.3,
+    "incident_energy_mJ": 0.40246491599999995,
+    "rebound_energy_mJ": 0.03622184243999999,
+    "energy_not_returned_to_rebound_mJ": 0.36624307355999997,
+    "rebound_height_mm": 0.9
+  },
+  {
+    "surface": "tpu_90a_liner",
+    "balls": 8,
+    "ball_mass_g": 0.513,
+    "drop_height_mm": 10.0,
+    "assumed_coefficient_of_restitution": 0.12,
+    "incident_energy_mJ": 0.40246491599999995,
+    "rebound_energy_mJ": 0.005795494790399999,
+    "energy_not_returned_to_rebound_mJ": 0.39666942120959997,
+    "rebound_height_mm": 0.144
+  }
+]
