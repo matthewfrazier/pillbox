@@ -32,12 +32,20 @@ Print: pull and sleeve upright as modeled, bar on its back — all supportless.
 PETG, supports=off, orient=off. Sliding clearances 0.25mm/face.
 
 Usage:  blender -b --factory-startup --python design_v7_2_side_bolt_proto.py
-Writes: print/v7_2_side_bolt_proto_plate.stl
+        blender -b --factory-startup --python design_v7_2_side_bolt_proto.py -- --only Bar
+Writes: print/v7_2_side_bolt_proto_plate.stl   (or ..._<part>.stl with --only)
+
+--only <name-substring> exports just that part — for reprinting one piece after a
+detach without re-running the whole 30-minute plate.
 """
 import os
+import sys
 
 import bpy
 from mathutils import Vector
+
+_argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+ONLY = _argv[_argv.index("--only") + 1] if "--only" in _argv else None
 
 # --- parameters (mm) -------------------------------------------------------------
 CLR = 0.25
@@ -150,10 +158,21 @@ bpy.context.view_layer.objects.active = sleeve
 bpy.ops.object.transform_apply(location=True)
 
 # --- export ----------------------------------------------------------------------
+if ONLY:
+    for o in [o for o in bpy.data.objects if ONLY.lower() not in o.name.lower()]:
+        bpy.data.objects.remove(o, do_unlink=True)
+    if not bpy.data.objects:
+        raise SystemExit(f"v7.2-proto: no part matches --only {ONLY!r}")
+    # a lone part goes to plate centre so it prints in the most reliable bed zone
+    obj = bpy.data.objects[0]
+    obj.location = (-obj.dimensions.x / 2, -obj.dimensions.y / 2, obj.location.z)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=True)
+
 for o in bpy.data.objects:
     print(f"v7.2-proto: {o.name} dims={[round(d, 2) for d in o.dimensions]}")
-out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                   "print", "v7_2_side_bolt_proto_plate.stl")
+name = f"v7_2_side_bolt_proto_{ONLY.lower()}.stl" if ONLY else "v7_2_side_bolt_proto_plate.stl"
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "print", name)
 bpy.ops.object.select_all(action="SELECT")
 bpy.ops.wm.stl_export(filepath=out, export_selected_objects=True, global_scale=1.0)
 print(f"v7.2-proto: wrote {out}")
