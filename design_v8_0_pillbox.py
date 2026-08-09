@@ -76,21 +76,25 @@ DELIBERATELY OMITTED — noted, not silently dropped
   - SPEC's three friction detents and their sleeve receivers. The bolt is v8.0's
     retention; the friction detents are what it replaces. Re-adding them is its own pass.
 
-PINCH GRIP
+PULL LIP
   A drawer you unlock and then cannot open is not a product, so the front face carries
-  SPEC's pull: opposed ledges along its top and bottom edges, projecting 2.75mm in -X —
-  the same order as the thumb pad, so the closed box still reads flat. Their outer faces
-  are FLUSH with DR_Z1 and DR_Z0: nothing projects above the drawer body or below it, so
-  nothing scrapes the sleeve ceiling or the table, and the traction ridges are formed by
-  cutting rounded grooves rather than adding bars (SPEC: "the tops of the grip ridges
-  align flush with the top edge of the drawer").
-  The ledges run Y=2.0..32.2 and stop short of the pad slot. Over the slot's span the
-  front wall is only 2.45mm tall above and below the slot — less Z than a 45deg ramp needs
-  to reach full projection — and the pad is using that space anyway. That leaves 30.2mm of
-  ledge, 60% of the width, on the side away from the thumb pad: the hand that unlocks and
-  the hand that pulls do not fight for the same real estate.
-  The top ledge's underside would be a flat horizontal overhang, so it is cut back to a
-  45deg ramp and supports itself. The bottom ledge sits on the plate and is free.
+  SPEC's pull. The first attempt ran opposed ledges along the top and bottom edges of the
+  face; the operator's preview review was that it framed the recess and read as an awkward
+  pocket. Replaced by ONE centred tab on an otherwise flat face.
+  The tab is 20mm wide in Y and 7.0mm tall, and it spends the entire 3.25mm recess between
+  the drawer front and the sleeve mouth: its outer face lands FLUSH with the rim at x=0.00
+  and never past it, so the closed box is dead flat and the pinch is as deep as the
+  geometry allows. Fingers curl over the top face and under the 45deg underside, with
+  4.20mm of clear pocket above and below the tab inside the mouth's 16.2mm opening.
+  It is offset 4.80mm toward -Y of the face centre, not centred. The pad slot owns
+  Y=32.6..52.1 at exactly the tab's height, so the tab has to live on the free side; its
+  +Y edge stops at 32.20, the same 0.60 clear of the pad at OPEN that the ledges kept.
+  Centred was preferred and function won. The offset also separates the two actions: the
+  thumb that unlocks and the fingers that pull do not land on the same spot.
+  The bore was NOT pushed deeper to thicken the tab's root. The root is the 1.5mm front
+  wall spanning the 10.5mm bore behind it; at a 15N pull that is ~2.6MPa of bending
+  against PETG's 46MPa yield, so internalising further would have shortened the drawer and
+  moved the validated sleeve hole to buy nothing.
 
 BORE, PAD SLOT AND ASSEMBLY (musket load)
   The bore is CLOSED all round the shaft — a rectangular hole through the drawer's front
@@ -192,22 +196,26 @@ SLOT_Y0 = PAD_Y0_LOCKED - TRAVEL - 0.2                 # 32.60  closed: the OPEN
 SLOT_Y1 = CH_Y1
 SLOT_X0, SLOT_X1 = DR_X0 - 0.1, CH_X0 + 0.05
 
-# --- pinch grip on the drawer's front face -----------------------------------------
-# Opposed ledges top and bottom, projecting in -X only. Nothing may pass DR_Z1 or DR_Z0
-# (it would scrape the sleeve ceiling or the table), so the ledges' outer faces sit flush
-# with those planes and all the projection is forward. They stop at the pad slot: over the
-# slot's Y span the front wall is only 2.45mm tall above and below the slot, not enough Z
-# for a 45deg ramp to reach full projection, and the pad needs that space anyway.
-GRIP_PROJ = 2.75                                       # -X projection, cf. pad's 2.5+0.5
-GRIP_FLAT = 1.2                                        # vertical bearing face height
-GRIP_EDGE = 0.4
-GRIP_X0 = DR_X0 - GRIP_PROJ                            # 0.50, still inside the sleeve rim
-GRIP_X1 = DR_X0 + 0.75                                 # buried in the front wall
-GRIP_Y0 = DR_Y0
-GRIP_Y1 = SLOT_Y0 - 0.4                                # 32.20, clear of the pad at OPEN
-GRIP_TOP_Z0 = DR_Z1 - GRIP_FLAT - GRIP_PROJ            # 13.05 ramp foot at the front face
-GRIP_BOT_Z1 = DR_Z0 + GRIP_FLAT + GRIP_PROJ            # 5.55
-GROOVE_R, GROOVE_D, GROOVE_N = 0.5, 0.4, 3             # rounded, so the ridges are flush
+# --- pull lip on the drawer's front face -------------------------------------------
+# ONE centred tab, not a perimeter ledge. The first attempt ran opposed ledges along the
+# top and bottom edges of the front face; on the preview that framed the recess and read
+# as an awkward pocket rather than a pull. A single tab in the middle of an otherwise flat
+# face reads as what it is.
+# The drawer front sits DR_X0 behind the sleeve mouth, so the tab spends that whole recess
+# and stops FLUSH with the rim at x=0.00 — maximum pinch depth, and the closed box is
+# still dead flat. Fingers curl over its top face and under its 45deg underside inside the
+# mouth, with LIP_Z0 - DR_Z0 of clear pocket above and below it.
+LIP_W = 20.0                                           # SPEC-range tab width in Y
+LIP_Y1 = SLOT_Y0 - 0.4                                 # 32.20, clear of the pad at OPEN
+LIP_Y0 = LIP_Y1 - LIP_W                                # 12.20
+LIP_PROJ = DR_X0                                       # 3.25 -> outer face flush at x=0
+LIP_X0 = DR_X0 - LIP_PROJ                              # 0.00
+LIP_X1 = DR_X0 + 0.75                                  # buried in the front wall
+LIP_H = 7.0
+LIP_Z0 = (DR_Z0 + DR_Z1 - LIP_H) / 2                   # 5.80
+LIP_Z1 = LIP_Z0 + LIP_H                                # 12.80
+LIP_EDGE = 0.45
+GROOVE_R, GROOVE_D, GROOVE_N = 0.5, 0.4, 3
 
 RELIEF_Y0, RELIEF_Y1 = 12.0, 29.0                      # clear of the slot: no overlap
 RELIEF_Z1 = 14.30                                      # capped: keeps the roof slab tied
@@ -402,26 +410,18 @@ drawer = combine(drawer, box("fin", FIN_X0, FIN_X1, FIN_Y0, FIN_Y1 + 0.5, DR_Z0,
 drawer = combine(drawer, sphere("bump", FIN_X0 + BUMP_R - BUMP_PROUD, BUMP_Y, ZC, BUMP_R),
                  "UNION")
 
-# Pinch grip: opposed ledges on the front face. The TOP ledge's underside is a horizontal
-# overhang if left square, so it is cut back to a 45deg ramp — the ledge grows outward as
-# Z rises and supports itself. The BOTTOM ledge sits on the plate, so its mirrored ramp is
-# an upward-facing face and costs nothing. Both are chamfered for comfort; only the top
-# gets traction grooves, cut as rounded channels so the ridge crowns stay flush with
-# DR_Z1 and nothing projects above the drawer body (SPEC).
-grip_t = bevel(box("griptop", GRIP_X0, GRIP_X1, GRIP_Y0, GRIP_Y1, GRIP_TOP_Z0, DR_Z1),
-               GRIP_EDGE)
-grip_t = combine(grip_t, wedge("gtw", GRIP_X0, GRIP_TOP_Z0, -1, -1, GRIP_PROJ,
-                               GRIP_Y0 - 0.5, GRIP_Y1 + 0.5), "DIFFERENCE")
-drawer = combine(drawer, grip_t, "UNION")
-grip_b = bevel(box("gripbot", GRIP_X0, GRIP_X1, GRIP_Y0, GRIP_Y1, DR_Z0, GRIP_BOT_Z1),
-               GRIP_EDGE)
-grip_b = combine(grip_b, wedge("gbw", GRIP_X0, GRIP_BOT_Z1, -1, +1, GRIP_PROJ,
-                               GRIP_Y0 - 0.5, GRIP_Y1 + 0.5), "DIFFERENCE")
-drawer = combine(drawer, grip_b, "UNION")
+# Pull lip: one centred tab. Its underside would be a flat horizontal overhang, so it is
+# cut back to a 45deg ramp running the tab's whole projection — the tab grows outward as Z
+# rises and supports itself. Top face carries rounded traction grooves running in Y, i.e.
+# across the -X pull direction, so a thumb pressing down cannot skate off.
+lip = bevel(box("pulllip", LIP_X0, LIP_X1, LIP_Y0, LIP_Y1, LIP_Z0, LIP_Z1), LIP_EDGE)
+lip = combine(lip, wedge("lw", LIP_X0, LIP_Z0, -1, -1, LIP_PROJ,
+                         LIP_Y0 - 0.5, LIP_Y1 + 0.5), "DIFFERENCE")
+drawer = combine(drawer, lip, "UNION")
 for _i in range(GROOVE_N):
-    _gx = GRIP_X0 + 0.8 + _i * (GRIP_PROJ - 1.6) / (GROOVE_N - 1)
-    drawer = combine(drawer, cylinder_y("groove", _gx, DR_Z1 + GROOVE_R - GROOVE_D,
-                                        GROOVE_R, GRIP_Y0 - 0.5, GRIP_Y1 + 0.5),
+    _gx = LIP_X0 + 0.7 + _i * (LIP_PROJ - 1.4) / (GROOVE_N - 1)
+    drawer = combine(drawer, cylinder_y("groove", _gx, LIP_Z1 + GROOVE_R - GROOVE_D,
+                                        GROOVE_R, LIP_Y0 - 0.5, LIP_Y1 + 0.5),
                      "DIFFERENCE")
 
 # --- BOLT (modelled at LOCKED, in the assembly frame) ------------------------------
@@ -468,9 +468,8 @@ BRIDGES = [
     ("drawer", "fin relief cap", RELIEF_X1 - CH_X1,
      f"z {RELIEF_Z1:.2f}, y {RELIEF_Y0:.1f}-{RELIEF_Y1:.1f}; ties the roof slab to the"
      " rear wall"),
-    ("drawer", "pinch grip ledges", 0.0,
-     f"top ledge underside is a 45deg ramp over its whole {GRIP_PROJ} projection; the"
-     " bottom ledge starts on the plate"),
+    ("drawer", "pull lip", 0.0,
+     f"underside is a 45deg ramp over the tab's whole {LIP_PROJ:.2f} projection"),
     ("sleeve", "bolt hole ceiling", (HOLE_Z1 - HOLE_CH) - (HOLE_Z0 + HOLE_CH),
      "low-X face is the ceiling when stood on the rear end; both corners chamfered"),
     ("sleeve", "counterbore ceiling",
@@ -525,13 +524,17 @@ def report():
           f"  -> the rear face IS the closed stop; front face {DR_X0:.2f} behind the rim")
     print(f"   drawer body {DR_L:.2f} x {DR_Y1 - DR_Y0:.2f} x {DR_Z1 - DR_Z0:.2f}"
           f"; front block {FB_X1 - DR_X0:.2f} deep")
-    print(f"   pinch grip: ledges y {GRIP_Y0:.1f}-{GRIP_Y1:.1f} ({GRIP_Y1 - GRIP_Y0:.1f}"
-          f" of {DR_Y1 - DR_Y0:.1f} wide), project {GRIP_PROJ:.2f} to x={GRIP_X0:.2f}"
-          f" (sleeve rim at 0.00); top face z={DR_Z1:.2f}, bottom face z={DR_Z0:.2f}"
-          f" -> nothing outside the drawer's own Z planes")
-    print(f"   grip clears the pad at OPEN by"
-          f" {(PAD_Y0_LOCKED - TRAVEL) - GRIP_Y1:.2f}; {GROOVE_N} grooves"
-          f" {GROOVE_D} deep, crowns flush at z={DR_Z1:.2f}")
+    print(f"   pull lip: one tab y {LIP_Y0:.2f}-{LIP_Y1:.2f} ({LIP_W:.1f} wide) x"
+          f" {LIP_H:.1f} tall, z {LIP_Z0:.2f}-{LIP_Z1:.2f}, centred on the drawer's"
+          f" mid-height {(DR_Z0 + DR_Z1) / 2:.2f}")
+    print(f"   projects {LIP_PROJ:.2f} from the front face to x={LIP_X0:.2f}"
+          f" = FLUSH with the sleeve rim, never past it;"
+          f" pocket above {DR_Z1 - LIP_Z1:.2f}, below {LIP_Z0 - DR_Z0:.2f}")
+    print(f"   offset {(DR_Y0 + DR_Y1) / 2 - (LIP_Y0 + LIP_Y1) / 2:.2f} toward -Y of the"
+          f" face centre (pad slot owns y>={SLOT_Y0:.1f});"
+          f" clears the pad at OPEN by {(PAD_Y0_LOCKED - TRAVEL) - LIP_Y1:.2f}")
+    print(f"   {GROOVE_N} traction grooves {GROOVE_D} deep in the top face, running in Y"
+          f" across the -X pull direction")
     print(f"   compartments {N_COMPARTMENTS} x {COMP_LEN:.2f} long,"
           f" {DR_Y1 - DR_Y0 - 2 * DR_WALL:.2f} wide, {DR_Z1 - DR_Z0 - DR_FLOOR:.2f} deep;"
           f" dividers {DR_DIV}")
